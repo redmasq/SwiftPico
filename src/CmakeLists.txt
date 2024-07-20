@@ -1,0 +1,25 @@
+# CMakeLists.txt in the /src directory
+
+# Add C source files
+add_library(pico_wrappers
+    c/pico-sdk-wrapper/startup.c
+    c/pico-sdk-wrapper/pico-sdk-wrapper.c
+    c/picodvi-wrapper/picodvi-wrapper.c
+    c/tinyusb-wrapper/tinyusb-wrapper.c
+)
+
+target_link_libraries(pico_wrappers pico_stdlib hardware_spi hardware_i2c)
+
+# Swift files
+add_custom_target(SwiftBuild ALL
+    COMMAND swiftc -target arm-none-eabi -emit-executable
+            -o ${CMAKE_BINARY_DIR}/SwiftApp
+            ${CMAKE_SOURCE_DIR}/src/swift/main.swift
+            -I ${CMAKE_SOURCE_DIR}/include
+    DEPENDS pico_wrappers
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+    COMMENT "Building Swift Application"
+    SOURCES swift/main.swift
+)
+
+add_dependencies(SwiftBuild pico_wrappers)

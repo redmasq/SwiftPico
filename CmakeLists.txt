@@ -1,0 +1,12 @@
+cmake_minimum_required(VERSION 3.13)
+
+project(PicoSwiftProject)
+
+# Include the pico-sdk from the external libs
+set(PICO_SDK_PATH "${CMAKE_SOURCE_DIR}/libs/pico-sdk")
+include(pico_sdk_import.cmake)
+
+# Standard CMake directories
+include_directories(${CMAKE_SOURCE_DIR}/include)
+
+add_subdirectory(src)
