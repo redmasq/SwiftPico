@@ -7,3 +7,6 @@
 [submodule "libs/tinyusb"]
 	path = libs/tinyusb
 	url = https://github.com/hathach/tinyusb.git
+[submodule "libs/swiftlang"]
+	path = libs/swiftlang
+	url = https://github.com/redmasq/swiftlangRP2040.git
